@@ -17,7 +17,9 @@ llm = ChatOpenAI(
 	model='gpt-4o',
 	temperature=0.0,
 )
-task = 'Find the founders of browser-use and draft them a short personalized message'
+task = 'Vá até a página https://reparador.fiat.com.br/ e siga os sseguintes passos:' \
+'# Passo 1: vá para a página de login e faça o login com o seguinte usuário e senha: Login: testediagweb@gmail.com, Senha: Diag2025' \
+'# Passo 2: selecione a opção Manutenção Fácil'
 
 agent = Agent(task=task, llm=llm)
 
