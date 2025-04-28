@@ -26,6 +26,8 @@ models = ['ecosport', 'courier', 'edge', 'fiesta-rocam', 'focus', 'fusion', 'fus
 
 years = ['2009', '2010', '2011', '2012', '2013', '2014', '2015']
 
+## https://www.reparadorford.com.br/motorcraft/informacoes-tecnicas?busca=
+
 modelo = input('Selecione o modelo: ')
 ano = input('Selecione o ano: ')
 
@@ -34,7 +36,8 @@ async def run_download():
 		task = (f"""
 		  Você possui essa lista de modelos de carro: {models}, e essa lista de anos: {years}. Diante disso, você tem essa url 
 		  base: https://www.reparadorford.com.br/motorcraft/informacoes-tecnicas/model/year/sistema-eletrico, e dessa url você pode mudar o endpoit de acordo com o pedido, no lugar de model, 
-		  você troca por um modelo da lista models, e assim também com o year, você pode trocar por um ano da lista years. Depois desse processo, baixe o primeiro sistema elétrico. 
+		  você troca por um modelo da lista models, e assim também com o year, você pode trocar por um ano da lista years. Depois desse processo, baixe o primeiro sistema elétrico que tenha a ver 
+		  com a energização do motor da bomba do lavador. Caso necessário, você pode rolar a página para baixo e carregar mais arquivos.
 		  Caso seja necessário fazer login, faça com as seguintes credenciais: CPF = "406.967.091-20", senha = "Diag2025!". Assim, quero o sistema elétrico do modelo {modelo}, do ano {ano}.
 		"""),
 		llm=llm,
