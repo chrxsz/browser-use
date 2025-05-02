@@ -23,22 +23,38 @@ browser = Browser(
 )
 
 models = ['ecosport', 'courier', 'edge', 'fiesta-rocam', 'focus', 'fusion', 'fusion-hibrido', 'ka', 'new-fiesta', 'new-fiesta-sedan', 'ranger']
-
 years = ['2009', '2010', '2011', '2012', '2013', '2014', '2015']
+systems = ['carroceria', 'motor', 'semi-arvores', 'sistema-de-combustivel', 'sistema-de-direcao', 'sistema-de-escapamento', 'sistema-de-freio', 'sistema-de-transmissao', 'sistema-eletrico', 'suspensao', 'informacoes-gerais']
 
-## https://www.reparadorford.com.br/motorcraft/informacoes-tecnicas?busca=
-
-modelo = input('Selecione o modelo: ')
-ano = input('Selecione o ano: ')
+input_user = input("Defina aqui o que você quer: ")
 
 async def run_download():
 	agent = Agent(
 		task = (f"""
-		  Você possui essa lista de modelos de carro: {models}, e essa lista de anos: {years}. Diante disso, você tem essa url 
-		  base: https://www.reparadorford.com.br/motorcraft/informacoes-tecnicas/model/year/sistema-eletrico, e dessa url você pode mudar o endpoit de acordo com o pedido, no lugar de model, 
-		  você troca por um modelo da lista models, e assim também com o year, você pode trocar por um ano da lista years. Depois desse processo, baixe o primeiro sistema elétrico que tenha a ver 
-		  com a energização do motor da bomba do lavador. Caso necessário, você pode rolar a página para baixo e carregar mais arquivos.
-		  Caso seja necessário fazer login, faça com as seguintes credenciais: CPF = "406.967.091-20", senha = "Diag2025!". Assim, quero o sistema elétrico do modelo {modelo}, do ano {ano}.
+		 	Você é um agente destinado a ajudar pessoas com problemas em carros da marca Ford. Seu objetivo é entender o que o usuário está precisando e retornar o material técnico mais adequado, 
+			realizando uma busca no site do Reparador Ford. Existem duas maneiras possíveis para essa busca:
+
+			# Maneira 1 - Busca por URL estruturada:
+			Você pode utilizar a seguinte URL base: https://www.reparadorford.com.br/motorcraft/informacoes-tecnicas/model/year/system
+			As palavras `model`, `year` e `system` são variáveis que devem ser substituídas por termos correspondentes às listas {models}, {years} e {systems}, respectivamente. Analise o pedido do usuário e escolha os termos mais apropriados para cada variável. 
+			Caso mais de um termo se aplique bem ao contexto, você pode usar múltiplos valores separados por dois-pontos, como neste exemplo: `modelo1:modelo2:modelo3`
+			Após definir a URL, acesse o site e baixe o arquivo que mais se relaciona com o problema do usuário. Você pode rolar a página, clicar em "carregar mais arquivos" e navegar livremente para encontrar o melhor resultado.
+
+			# Maneira 2 - Busca por expressão:
+			Utilize a seguinte URL base: https://www.reparadorford.com.br/motorcraft/informacoes-tecnicas?busca=expressao
+			Substitua a palavra `expressao` por uma frase ou palavra-chave que resuma da melhor forma o pedido do usuário. 
+			Após definir a URL, realize a busca, baixe o arquivo mais relevante, considerando sempre o modelo, ano e problema descrito pelo usuário. Você também pode rolar a página e carregar mais arquivos, se necessário.
+
+			## Observações importantes:
+			- Sempre analise o pedido do usuário com atenção para evitar alucinações;
+			- Escolha livremente entre a Maneira 1 ou a Maneira 2, conforme o caso;
+			- Usar somente as Urls fornecidas, podendo ser alteradas de acordo com o pedido do usuário;
+			- Se o site solicitar login, use as seguintes credenciais:
+				- CPF: 406.967.091-20
+				- Senha: Diag2025!
+
+			A seguir está o pedido do usuário:
+			{input_user}
 		"""),
 		llm=llm,
 		max_actions_per_step=8,
