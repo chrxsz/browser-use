@@ -10,6 +10,8 @@ from dotenv import load_dotenv
 from browser_use.agent.service import Agent
 from browser_use.browser.browser import Browser, BrowserConfig
 from browser_use.browser.context import BrowserContextConfig
+from langchain_google_genai import ChatGoogleGenerativeAI
+
 
 load_dotenv()
 
@@ -20,7 +22,9 @@ browser = Browser(
 		new_context_config=BrowserContextConfig(save_recording_path='./tmp/recordings'),
 	)
 )
+
 llm = ChatOpenAI(model='gpt-4o')
+llm = ChatGoogleGenerativeAI(model='gemini-2.0-flash-exp')
 
 
 async def main():
